@@ -10,6 +10,9 @@ def _open(subpath):
     return open(path, encoding="utf-8", errors="ignore")
 
 
+with _open("requirements.txt") as file:
+    base_reqs = file.read().strip().split("\n")
+
 with _open("requirements-dev.txt") as file:
     dev_reqs = file.read().strip().split("\n")
 
@@ -21,7 +24,8 @@ setup(
     url="https://github.com/has-abi",
     description="Parse DOC and DOCX files",
     python_requires=">=3.7",
-    tests_require=dev_reqs,
+    tests_require=base_reqs + dev_reqs,
+    install_requires=base_reqs,
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
