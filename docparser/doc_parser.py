@@ -43,8 +43,9 @@ class DocParser:
 
     def __read_as_xml(self, input_file: Union[str, BufferedReader]) -> bytes:
         with ZipFile(input_file) as zipfile:
-            self.__clear_temp()
-            return zipfile.read(XML_DOC)
+            xml_file = zipfile.read(XML_DOC)
+        self.__clear_temp()
+        return xml_file
 
     def __doc2docx(self, input_file: Union[str, BufferedReader]):
         doc = aw.Document(input_file, load_options=None)  # type: ignore
