@@ -18,7 +18,7 @@ class XMLParser:
         if not isinstance(xml_file, ZipFile):
             raise InvalidArgumentTypeException("input file must of type bytes.")
 
-    def extract_text(self, split: bool) -> Union[str, Dict[str, str]]:
+    def extract_text(self) -> Dict[str, str]:
         doc_text: Dict[str, str] = {}
         for part_name, content in self.__xml_file_parts.items():
             doc_text[part_name] = ""
@@ -27,7 +27,7 @@ class XMLParser:
                     doc_text[part_name] += self.__xml2text(sub_content)
             else:
                 doc_text[part_name] += self.__xml2text(content)
-        return doc_text if split else " ".join(list(doc_text.values()))
+        return doc_text
 
     def __xml2text(self, xml_part: bytes) -> str:
         text = ""
