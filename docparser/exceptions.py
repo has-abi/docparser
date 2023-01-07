@@ -3,6 +3,11 @@ class InvalidArgumentTypeException(Exception):
         super().__init__(message)
 
 
+class FileNotFoundException(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+
+
 class UnsupportedFileFormatException(Exception):
     def __init__(self, file_format: str) -> None:
         super().__init__(

@@ -1,4 +1,3 @@
-TEMP_DOCX_FILE = "temp/temp_doc.docx"
 DOCX_EXT = "docx"
 ALLOWED_EXTS = [DOCX_EXT]
 XML_BODY = "word/document.xml"

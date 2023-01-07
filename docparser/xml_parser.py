@@ -9,7 +9,7 @@ from docparser.exceptions import InvalidArgumentTypeException
 
 
 class XMLParser:
-    def __init__(self, input_file: ZipFile, file_ext: str) -> None:
+    def __init__(self, input_file: ZipFile) -> None:
         self.__check(input_file)
         self.__xml_file_parts = self.__to_xml(input_file)
 
