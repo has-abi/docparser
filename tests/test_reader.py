@@ -6,7 +6,6 @@ from docparser.exceptions import (
 )
 from docparser.reader import Reader
 
-DOC_FILE_PATH = "/tests/doc_example.doc"
 DOCX_FILE_PATH = "/tests/docx_example.docx"
 
 

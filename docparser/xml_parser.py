@@ -12,7 +12,6 @@ class XMLParser:
     def __init__(self, input_file: ZipFile, file_ext: str) -> None:
         self.__check(input_file)
         self.__xml_file_parts = self.__to_xml(input_file)
-        self.__is_doc = bool(file_ext == CS.DOC_EXT)
 
     def __check(self, xml_file: ZipFile) -> None:
         if not isinstance(xml_file, ZipFile):
@@ -44,8 +43,6 @@ class XMLParser:
                 text += LayoutEnum.BREAK_LINE
             elif child.tag == TagEnum.PARAGRAPH:
                 text += LayoutEnum.MAJ_BREAK_LINE
-        if self.__is_doc:
-            return re.sub(CS.ASPOSE_EVAL_STATEMENT, "", text)
         return text
 
     def __to_xml(self, zip_file: ZipFile) -> Dict[str, Union[bytes, List[bytes]]]:
