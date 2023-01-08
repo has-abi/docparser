@@ -13,44 +13,45 @@ XML_FOOTER = "word/footer[0-9]*.xml"
 
 
 class TestXMLParser(unittest.TestCase):
-    def setUp(self) -> None:
-        self.zip_file = ZipFile(DOCX_FILE_PATH)
-        self.xml_parser = XMLParser(self.zip_file)
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.zip_file = ZipFile(DOCX_FILE_PATH)
+        cls.xml_parser = XMLParser(cls.zip_file)
 
     def test_invalid_input_file(self):
         with self.assertRaises(InvalidArgumentTypeException):
             xml_parser = XMLParser(input_file="")  # type: ignore
 
     def test_get_xml_part_by_pattern_header(self) -> None:
-        test_result = self.xml_parser.get_xml_part_by_pattern(XML_HEADER)
+        test_result = __class__.xml_parser.get_xml_part_by_pattern(XML_HEADER)
         self.assertTrue(isinstance(test_result, list))
         self.assertTrue(all(isinstance(result, bytes) for result in test_result))
 
     def test_get_xml_part_by_pattern_body(self) -> None:
-        test_result = self.xml_parser.get_xml_part_by_pattern(XML_BODY)
+        test_result = __class__.xml_parser.get_xml_part_by_pattern(XML_BODY)
         self.assertTrue(isinstance(test_result, list))
         self.assertTrue(all(isinstance(result, bytes) for result in test_result))
 
     def test_get_xml_part_by_pattern_footer(self) -> None:
-        test_result = self.xml_parser.get_xml_part_by_pattern(XML_FOOTER)
+        test_result = __class__.xml_parser.get_xml_part_by_pattern(XML_FOOTER)
         self.assertTrue(isinstance(test_result, list))
         self.assertTrue(all(isinstance(result, bytes) for result in test_result))
 
     def test_to_xml(self) -> None:
-        test_xml_components = self.xml_parser.to_xml()
+        test_xml_components = __class__.xml_parser.to_xml()
         self.assertTrue(
             ["header", "body", "footer"] == list(test_xml_components.keys())
         )
 
     def test_xml2text(self) -> None:
-        test_xml_body = self.xml_parser.get_xml_part_by_pattern(XML_BODY)
+        test_xml_body = __class__.xml_parser.get_xml_part_by_pattern(XML_BODY)
         text_result = " ".join(
             [self.xml_parser.xml2text(part) for part in test_xml_body]
         )
         self.assertTrue(len(text_result) > 0)
 
     def test_extract_text(self) -> None:
-        doc_content = self.xml_parser.extract_text()
+        doc_content = __class__.xml_parser.extract_text()
         self.assertTrue(isinstance(doc_content, dict))
         self.assertTrue(["header", "body", "footer"] == list(doc_content.keys()))
         self.assertTrue(
@@ -60,8 +61,9 @@ class TestXMLParser(unittest.TestCase):
             )
         )
 
-    def tearDown(self) -> None:
-        self.zip_file.close()
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.zip_file.close()
 
 
 if __name__ == "__main__":
