@@ -1,7 +1,6 @@
 from typing import Any
 
 from docparser.document import Document
-from docparser.reader import Reader
 
 
 class Parser:
