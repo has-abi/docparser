@@ -1,3 +1,14 @@
+__doc__ = """
+This module contains the package enums.
+
+Enums Classes
+-------------
+
+Below is listed the enums classes within 
+:py:mod:`docparser.enums`
+"""
+
+
 from enum import Enum
 
 import docparser.constants as CS

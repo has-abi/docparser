@@ -1,3 +1,8 @@
+__doc__ = """
+This module contains the package constants
+"""
+
+
 DOCX_EXT = "docx"
 ALLOWED_EXTS = [DOCX_EXT]
 XML_BODY = "word/document.xml"

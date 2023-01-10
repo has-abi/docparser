@@ -1,3 +1,9 @@
+__doc__ = """
+This is the package entrypoint which exposes the
+`parse` method that handles the parsing process.
+"""
+
+
 from io import BufferedReader
 from typing import Union
 
