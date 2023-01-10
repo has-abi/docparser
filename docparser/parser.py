@@ -14,7 +14,7 @@ along with possessed methods.
 from typing import Any
 
 from docparser.document import Document
-from docparser.exceptions import InvalidValueException, MissingAttributeException
+from docparser.exceptions import InvalidReturnValueException, MissingAttributeException
 
 
 class Parser:
@@ -74,7 +74,7 @@ class Parser:
         """
         splitted_content = self.file_parser.extract_text()
         if not isinstance(splitted_content, dict):
-            raise InvalidValueException(
+            raise InvalidReturnValueException(
                 "The file parser extract_text callable return value must be a dict"
             )
         content = " ".join(list(splitted_content.values()))

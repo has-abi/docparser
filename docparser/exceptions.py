@@ -31,6 +31,6 @@ class MissingAttributeException(Exception):
         super().__init__(message)
 
 
-class InvalidValueException(Exception):
+class InvalidReturnValueException(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)

@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 
 from docparser.document import Document
+from docparser.exceptions import InvalidReturnValueException, MissingAttributeException
 from docparser.parser import Parser
 
 
@@ -21,6 +22,17 @@ class TestParser(unittest.TestCase):
             file_ext="docx",
             file_name="file_name_example.docx",
         )
+
+    def test_parser_with_invalid_file_parser(self):
+        test_file_parser = ""
+        with self.assertRaises(MissingAttributeException):
+            Parser(file_parser=test_file_parser, file_ext="", file_name="")
+
+    def test_invalid_file_parser_extract_text_callable_return(self):
+        test_file_parser = Mock()
+        test_file_parser.extract_text = Mock(return_value=["list item"])
+        with self.assertRaises(InvalidReturnValueException):
+            Parser(file_parser=test_file_parser, file_ext="", file_name="")
 
     def test_get_document(self):
         result_document = __class__.parser.document
