@@ -20,7 +20,7 @@ with _open("README.md") as f:
     readme = f.read()
 
 setup(
-    name="docparser",
+    name="python-docparser",
     version="0.1.0",
     author="Hassane Abida",
     author_email="abidahass.uca@gmail.com",

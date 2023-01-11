@@ -1,7 +1,13 @@
 # What is docparser?
 docparser is python package that extract text form a DOCX document.
 
-## How to use it?
+## Installation
+
+```bash
+pip install python-docparser
+```
+
+## Usage
 
 ```python
 from docparser import parse 
