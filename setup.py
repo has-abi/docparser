@@ -21,7 +21,7 @@ with _open("README.md") as f:
 
 setup(
     name="python-docparser",
-    version="0.1.0",
+    version="1.1.0",
     author="Hassane Abida",
     author_email="abidahass.uca@gmail.com",
     url="https://github.com/has-abi/docparser",
