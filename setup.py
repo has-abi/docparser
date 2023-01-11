@@ -16,13 +16,18 @@ with _open("requirements.txt") as file:
 with _open("requirements-dev.txt") as file:
     dev_reqs = file.read().strip().split("\n")
 
+with _open("README.md") as f:
+    readme = f.read()
+
 setup(
     name="docparser",
     version="0.1.0",
     author="Hassane Abida",
     author_email="abidahass.uca@gmail.com",
     url="https://github.com/has-abi",
-    description="Parse DOC and DOCX files",
+    description="Extract text from your docx document.",
+    long_description=readme,
+    long_description_content_type="text/markdown",
     python_requires=">=3.7",
     tests_require=base_reqs + dev_reqs,
     install_requires=base_reqs,
