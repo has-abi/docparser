@@ -24,7 +24,7 @@ setup(
     version="0.1.0",
     author="Hassane Abida",
     author_email="abidahass.uca@gmail.com",
-    url="https://github.com/has-abi",
+    url="https://github.com/has-abi/docparser",
     description="Extract text from your docx document.",
     long_description=readme,
     long_description_content_type="text/markdown",
