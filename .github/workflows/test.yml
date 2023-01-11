@@ -48,7 +48,7 @@ jobs:
         
     - name: Run tests
       run: |
-        python -m unittest discover
+        python -m coverage run -m unittest
         python -m coverage html
         
     - name: Upload code coverage
