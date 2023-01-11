@@ -40,7 +40,7 @@ class Parser:
         self.file_parser = file_parser
         self.document = self.get_document(file_ext, file_name)
 
-    def __check(self, file_parser: Any):
+    def __check(self, file_parser: Any) -> None:
         """Checks if the `file_parser` has a callable with the name
         `extract_text`.
 
