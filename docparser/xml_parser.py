@@ -12,17 +12,20 @@ along with possessed methods.
 
 
 import re
-import xml.etree.ElementTree as ET
-from typing import Dict, List, Union
+import xml.etree.ElementTree as ETree
+from typing import Dict, List
 from zipfile import ZipFile
 
 import docparser.constants as CS
 from docparser.enums import LayoutEnum, TagEnum
-from docparser.exceptions import InvalidArgumentTypeException
+from docparser.exceptions import InvalidArgumentTypeError
+
+
+XML_Type = Dict[str, bytes | List[bytes]]
 
 
 class XMLParser:
-    """Docpatser `XMLParser` class that parses the input zip file
+    """Docparser `XMLParser` class that parses the input zip file
     using the python package `xml`.
 
     Args:
@@ -30,7 +33,7 @@ class XMLParser:
     """
 
     def __init__(self, input_file: ZipFile) -> None:
-        """Docpatser `XMLParser` class that parses the input zip file
+        """Docparser `XMLParser` class that parses the input zip file
         using the python package `xml`.
 
         Args:
@@ -41,24 +44,24 @@ class XMLParser:
         self.__name_list = self.__zip_file.namelist()
 
     def __check(self, input_file: ZipFile) -> None:
-        """Check the input arguments of the class constuctor for invalid
+        """Check the input arguments of the class constructor for invalid
         types or values.
 
         Args:
             input_file (ZipFile): Zip file.
 
         Raises:
-            InvalidArgumentTypeException: Thrown if the input file is not an
+            InvalidArgumentTypeError: Thrown if the input file is not an
                 instance of ZipFile.
         """
         if not isinstance(input_file, ZipFile):
-            raise InvalidArgumentTypeException("input file must of type ZipFile.")
+            raise InvalidArgumentTypeError("input file must of type ZipFile.")
 
     def extract_text(self) -> Dict[str, str]:
         """Extract text from the zip file using XML.
 
         Returns:
-            Dict[str, str]: A dictionnary containing the document
+            Dict[str, str]: A dictionary containing the document
                 XML parts [head, body, footer] and their text.
         """
         doc_text: Dict[str, str] = {}
@@ -73,7 +76,7 @@ class XMLParser:
         return doc_text
 
     def xml2text(self, xml_part: bytes) -> str:
-        """Extract text from an xml component nodes.
+        """Extract text from xml component nodes.
 
         Args:
             xml_part (bytes): XML component.
@@ -82,7 +85,7 @@ class XMLParser:
             str: The extracted text.
         """
         text = ""
-        root = ET.fromstring(xml_part)
+        root = ETree.fromstring(xml_part)
         for child in root.iter():
             if child.tag == TagEnum.SPACE:
                 text += child.text if child.text is not None else ""
@@ -97,17 +100,16 @@ class XMLParser:
                 text += LayoutEnum.MAJ_BREAK_LINE
         return text
 
-    def to_xml(self) -> Dict[str, Union[bytes, List[bytes]]]:
+    def to_xml(self) -> XML_Type:
         """Convert a zip file to XML components header, body and footer.
 
         Returns:
-            Dict[str, Union[bytes, List[bytes]]]: Dictionnary containing
+            XML_Type: Dictionary containing
                 the components content.
         """
-        xml_parts: Dict[str, Union[bytes, List[bytes]]] = {}
-        xml_parts["header"] = self.get_xml_part_by_pattern(CS.XML_HEADER)
-        xml_parts["body"] = self.__zip_file.read(CS.XML_BODY)
-        xml_parts["footer"] = self.get_xml_part_by_pattern(CS.XML_FOOTER)
+        xml_parts: XML_Type = {"header": self.get_xml_part_by_pattern(CS.XML_HEADER),
+                               "body": self.__zip_file.read(CS.XML_BODY),
+                               "footer": self.get_xml_part_by_pattern(CS.XML_FOOTER)}
         return xml_parts
 
     def get_xml_part_by_pattern(self, pattern: str) -> List[bytes]:

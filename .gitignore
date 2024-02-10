@@ -96,3 +96,6 @@ ENV/
 
 # html coverage
 htmlcov/
+
+# Pycharm
+.idea

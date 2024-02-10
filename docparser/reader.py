@@ -12,14 +12,12 @@ along with possessed methods.
 
 import os
 from io import BufferedReader
-from typing import Union
 from zipfile import ZipFile
 
 import docparser.constants as CS
 from docparser.exceptions import (
-    FileNotFoundException,
-    InvalidArgumentTypeException,
-    UnsupportedFileFormatException,
+    InvalidArgumentTypeError,
+    UnsupportedFileFormatError,
 )
 
 
@@ -27,16 +25,16 @@ class Reader:
     """Docparser `Reader` class that reads a docx file as a zip file.
 
     Args:
-        input_file (Union[str, BufferedReader]): Input file that could be a file
+        input_file (str | BufferedReader): Input file that could be a file
             or a file path.
         file_ext (str): The input file extension.
     """
 
-    def __init__(self, input_file: Union[str, BufferedReader], file_ext: str) -> None:
+    def __init__(self, input_file: str | BufferedReader, file_ext: str) -> None:
         """Docparser `Reader` class that reads a docx file as a zip file.
 
         Args:
-            input_file (Union[str, BufferedReader]): Input file that could be a file
+            input_file (str | BufferedReader): Input file that could be a file
                 or a file path.
             file_ext (str): The input file extension.
         """
@@ -44,33 +42,33 @@ class Reader:
         self.input_file = input_file
         self.zip_file = self.to_zip()
 
-    def __check(self, input_file: Union[str, BufferedReader], file_ext: str) -> None:
-        """Check the input arguments of the class constuctor for invalid
+    def __check(self, input_file: str | BufferedReader, file_ext: str) -> None:
+        """Check the input arguments of the class constructor for invalid
         types or values.
 
         Args:
-            input_file (Union[str, BufferedReader]): Input file that could be a file
+            input_file (str | BufferedReade): Input file that could be a file
                 or a file path.
             file_ext (str): The input file extension.
 
         Raises:
-            InvalidArgumentTypeException: Thrown if any argument has an invalid
+            InvalidArgumentTypeError: Thrown if any argument has an invalid
                 type.
-            UnsupportedFileFormatException: Thrown if the input file has unsupported
+            UnsupportedFileFormatError: Thrown if the input file has unsupported
                 format.
-            FileNotFoundException: Thrown if the input file don't exist in disque or
+            FileNotFoundError: Thrown if the input file don't exist in disque or
                 not found.
         """
         if not isinstance(input_file, (str, BufferedReader)):
-            raise InvalidArgumentTypeException(
+            raise InvalidArgumentTypeError(
                 "input_file must be a file path or a binary file."
             )
 
         if file_ext not in CS.ALLOWED_EXTS:
-            raise UnsupportedFileFormatException(file_ext)
+            raise UnsupportedFileFormatError(file_ext)
 
         if isinstance(input_file, str) and not os.path.isfile(input_file):
-            raise FileNotFoundException(f"File not found: {input_file}")
+            raise FileNotFoundError(f"File not found: {input_file}")
 
     def to_zip(self) -> ZipFile:
         """Convert the input file to a zip file.

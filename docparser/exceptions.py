@@ -9,28 +9,23 @@ Below is listed the exceptions classes within
 """
 
 
-class InvalidArgumentTypeException(Exception):
+class InvalidArgumentTypeError(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)
 
 
-class FileNotFoundException(Exception):
-    def __init__(self, message: str) -> None:
-        super().__init__(message)
-
-
-class UnsupportedFileFormatException(Exception):
+class UnsupportedFileFormatError(Exception):
     def __init__(self, file_format: str) -> None:
         super().__init__(
             f"{file_format} if not supported. supported formats are docx and doc."
         )
 
 
-class MissingAttributeException(Exception):
+class MissingAttributeError(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)
 
 
-class InvalidReturnValueException(Exception):
+class InvalidReturnValueError(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)

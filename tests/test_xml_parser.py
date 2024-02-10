@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 from zipfile import ZipFile
 
-from docparser.exceptions import InvalidArgumentTypeException
+from docparser.exceptions import InvalidArgumentTypeError
 from docparser.xml_parser import XMLParser
 
 DOCX_FILE_PATH = Path(__file__).parent / "data" / "docx_example.docx"
@@ -19,7 +19,7 @@ class TestXMLParser(unittest.TestCase):
         cls.xml_parser = XMLParser(cls.zip_file)
 
     def test_invalid_input_file(self):
-        with self.assertRaises(InvalidArgumentTypeException):
+        with self.assertRaises(InvalidArgumentTypeError):
             xml_parser = XMLParser(input_file="")  # type: ignore
 
     def test_get_xml_part_by_pattern_header(self) -> None:
