@@ -14,9 +14,7 @@ from io import BufferedReader
 from typing import Tuple
 
 
-def get_file_name_and_ext(
-    file_or_filepath: str | BufferedReader
-) -> Tuple[str, str]:
+def get_file_name_and_ext(file_or_filepath: str | BufferedReader) -> Tuple[str, str]:
     """Extract the file extension and the file name
     from a file or a file name.
 

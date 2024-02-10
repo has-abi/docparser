@@ -107,9 +107,11 @@ class XMLParser:
             XML_Type: Dictionary containing
                 the components content.
         """
-        xml_parts: XML_Type = {"header": self.get_xml_part_by_pattern(CS.XML_HEADER),
-                               "body": self.__zip_file.read(CS.XML_BODY),
-                               "footer": self.get_xml_part_by_pattern(CS.XML_FOOTER)}
+        xml_parts: XML_Type = {
+            "header": self.get_xml_part_by_pattern(CS.XML_HEADER),
+            "body": self.__zip_file.read(CS.XML_BODY),
+            "footer": self.get_xml_part_by_pattern(CS.XML_FOOTER),
+        }
         return xml_parts
 
     def get_xml_part_by_pattern(self, pattern: str) -> List[bytes]:
