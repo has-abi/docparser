@@ -14,7 +14,7 @@ along with possessed methods.
 from typing import Any
 
 from docparser.document import Document
-from docparser.exceptions import InvalidReturnValueException, MissingAttributeException
+from docparser.exceptions import InvalidReturnValueError, MissingAttributeError
 
 
 class Parser:
@@ -48,13 +48,13 @@ class Parser:
             file_parser (Any): A file parser.
 
         Raises:
-            MissingAttributeException: Thrown if the file parser don't have
+            MissingAttributeError: Thrown if the file parser don't have
                 a callable `extract_text`
         """
         if not (
             hasattr(file_parser, "extract_text") and callable(file_parser.extract_text)
         ):
-            raise MissingAttributeException(
+            raise MissingAttributeError(
                 "Missing callable extract_text() from file_parser instance."
             )
 
@@ -66,21 +66,21 @@ class Parser:
             file_name (str): The original file name.
 
         Raises:
-            InvalidValueException: throw if the file parser callable
+            InvalidReturnValueError: throw if the file parser callable
                 `extract_text` return value is not a dict.
 
         Returns:
             Document: A document object that represents the parsed results.
         """
-        splitted_content = self.file_parser.extract_text()
-        if not isinstance(splitted_content, dict):
-            raise InvalidReturnValueException(
+        divided_content = self.file_parser.extract_text()
+        if not isinstance(divided_content, dict):
+            raise InvalidReturnValueError(
                 "The file parser extract_text callable return value must be a dict"
             )
-        content = " ".join(list(splitted_content.values()))
+        content = " ".join(list(divided_content.values()))
         return Document(
             name=file_name,
             ext=file_ext,
             content=content,
-            splitted_content=splitted_content,
+            divided_content=divided_content,
         )

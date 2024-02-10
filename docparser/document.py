@@ -19,4 +19,4 @@ class Document:
     name: str
     ext: str
     content: str
-    splitted_content: Dict[str, str]
+    divided_content: Dict[str, str]
